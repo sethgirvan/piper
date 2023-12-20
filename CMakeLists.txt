@@ -7,6 +7,9 @@ file(READ "${CMAKE_CURRENT_LIST_DIR}/VERSION" piper_version)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Make build directory relocatable (see # https://stackoverflow.com/a/71321163)
+SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
+
 if(MSVC)
   # Force compiler to use UTF-8 for IPA constants
   add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
