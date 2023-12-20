@@ -8,7 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Make build directory relocatable (see # https://stackoverflow.com/a/71321163)
+# on systems like Linux that support $ORIGIN in rpath
 SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
+# Make the install directory relocatable on Apple by 
 
 if(MSVC)
   # Force compiler to use UTF-8 for IPA constants
@@ -18,6 +20,11 @@ elseif(NOT APPLE)
   # Linux flags
   string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra -Wl,-rpath,'$ORIGIN'")
   string(APPEND CMAKE_C_FLAGS " -Wall -Wextra")
+else()
+  # Apple flags
+  # Link relative to piper binary path on Apple in order to make install
+  # directory relocatable.
+  set(CMAKE_INSTALL_RPATH, "${executable_path}")
 endif()
 
 add_executable(piper src/cpp/main.cpp src/cpp/piper.cpp)
