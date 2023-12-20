@@ -21,10 +21,8 @@ elseif(NOT APPLE)
   string(APPEND CMAKE_CXX_FLAGS " -Wall -Wextra -Wl,-rpath,'$ORIGIN'")
   string(APPEND CMAKE_C_FLAGS " -Wall -Wextra")
 else()
-  # Apple flags
-  # Link relative to piper binary path on Apple in order to make install
-  # directory relocatable.
-  set(CMAKE_INSTALL_RPATH, "@executable_path")
+  string(APPEND CMAKE_CXX_FLAGS " -Wl,-rpath,'@executable_path'")
+  string(APPEND CMAKE_C_FLAGS " -Wl,-rpath,'@executable_path'")
 endif()
 
 add_executable(piper src/cpp/main.cpp src/cpp/piper.cpp)
