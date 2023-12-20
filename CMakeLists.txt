@@ -24,7 +24,7 @@ else()
   # Apple flags
   # Link relative to piper binary path on Apple in order to make install
   # directory relocatable.
-  set(CMAKE_INSTALL_RPATH, "${executable_path}")
+  set(CMAKE_INSTALL_RPATH, "@executable_path")
 endif()
 
 add_executable(piper src/cpp/main.cpp src/cpp/piper.cpp)
